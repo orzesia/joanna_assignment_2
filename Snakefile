@@ -118,5 +118,9 @@ rule filtering:
     shell: 
         """gatk VariantFiltration -R {input.fasta} -V {input.vcf} -O {output.vcf} --filter-expression "QD < 2.0 || FS > 60.0" --filter-name FILTER"""
 
-
+rule ganbank:
+    output:
+        gbk = f"{SNPEFF_DATA_DIR}/genes.gbk"
+    shell: 
+        "efetch -db nucleotide -id {REF_ID} -format genbank > {output.gbk}"
 
