@@ -47,4 +47,15 @@ rule samtools:
     output: f"{RAW_DIR}/reference.fasta.fai"
     shell: "samtools faidx {input.fasta}"
 
+rule bwa:
+    input: fasta = f"{RAW_DIR}/reference.fasta"
+    output: 
+        f"{RAW_DIR}/reference.fasta.amb",
+        f"{RAW_DIR}/reference.fasta.ann",
+        f"{RAW_DIR}/reference.fasta.bwt",
+        f"{RAW_DIR}/reference.fasta.pac",
+        f"{RAW_DIR}/reference.fasta.sa"
+    shell: "bwa index {input.fasta}"
+
+
 

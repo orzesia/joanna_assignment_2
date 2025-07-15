@@ -1,0 +1,24 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job      count
+-----  -------
+bwa          1
+total        1
+
+Select jobs to execute...
+
+[Tue Jul 15 14:15:32 2025]
+rule bwa:
+    input: results/raw/reference.fasta
+    output: results/raw/reference.fasta.amb, results/raw/reference.fasta.ann, results/raw/reference.fasta.bwt, results/raw/reference.fasta.pac, results/raw/reference.fasta.sa
+    jobid: 0
+    reason: Missing output files: results/raw/reference.fasta.sa, results/raw/reference.fasta.ann, results/raw/reference.fasta.amb, results/raw/reference.fasta.pac
+    resources: tmpdir=/tmp
+
+[Tue Jul 15 14:15:32 2025]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: .snakemake/log/2025-07-15T141531.416486.snakemake.log
