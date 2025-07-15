@@ -94,5 +94,12 @@ rule duplicates:
         "gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics}"
 
 
+rule indexing:
+    input: bam = f"{ALIGNED_DIR}/dedup.bam"
+    output:
+        f"{ALIGNED_DIR}/dedup.bam.bai"
+    shell: 
+        "samtools index {input.bam}"
+
 
 
