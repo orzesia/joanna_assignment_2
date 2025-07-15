@@ -1,0 +1,34 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+snpEff_database        1
+total                  1
+
+Select jobs to execute...
+
+[Tue Jul 15 17:25:28 2025]
+rule snpEff_database:
+    input: results/snpEff/snpEff.config
+    output: results/snpEff/snpEff_reference_db.txt
+    jobid: 0
+    reason: Missing output files: results/snpEff/snpEff_reference_db.txt
+    resources: tmpdir=/tmp
+
+[Tue Jul 15 17:25:30 2025]
+Error in rule snpEff_database:
+    jobid: 0
+    input: results/snpEff/snpEff.config
+    output: results/snpEff/snpEff_reference_db.txt
+    shell:
+        snpEff build -c results/snpEff/snpEff.config -genbank -v -noCheckProtein reference_db > results/snpEff/snpEff_reference_db.txt
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job snpEff_database since they might be corrupted:
+results/snpEff/snpEff_reference_db.txt
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-15T172527.598916.snakemake.log

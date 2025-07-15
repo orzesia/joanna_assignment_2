@@ -137,3 +137,10 @@ rule custom_snpEff:
         reference_db.genbank : $(readlink -f {input.gbk})
         EOF
         """
+
+rule snpEff_database:
+    input: config = f"{SNPEFF_DIR}/snpEff.config"
+    output: f"{SNPEFF_DIR}/snpEff_reference_db.txt"
+    shell:
+        "snpEff build -c {input.config} -genbank -v -noCheckProtein reference_db > {output}"
+
