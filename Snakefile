@@ -32,4 +32,13 @@ rule data:
         fastq-dump -X 10000 {RAW_DIR}/{SRA}/{SRA}.sra -O {RAW_DIR}
         """
 
+rule fastqc:
+    input: fastq=f"{RAW_DIR}/{SRA}.fastq"
+    output:
+        html=f"{QC_DIR}/{SRA}_fastqc.html",
+        zip=f"{QC_DIR}/{SRA}_fastqc.zip"
+    shell:
+        """
+        fastqc -o {QC_DIR} {input.fastq}
+        """
 
