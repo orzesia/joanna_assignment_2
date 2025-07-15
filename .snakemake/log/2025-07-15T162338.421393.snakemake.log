@@ -1,0 +1,23 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job           count
+----------  -------
+duplicates        1
+total             1
+
+Select jobs to execute...
+
+[Tue Jul 15 16:23:39 2025]
+rule duplicates:
+    input: results/aligned/aligned.sorted.bam
+    output: results/aligned/dup_metrics.txt, results/aligned/dedup.bam
+    jobid: 0
+    reason: Missing output files: results/aligned/dup_metrics.txt, results/aligned/dedup.bam
+    resources: tmpdir=/tmp
+
+RuleException in rule duplicates in file /home/ubuntu/binf5506/Snakefile, line 88:
+NameError: The name 'outline' is unknown in this context. Please make sure that you defined that variable. Also note that braces not used for variable access have to be escaped by repeating them, i.e. {{print $1}}, when formatting the following:
+gatk MarkDuplicates -I {input.bam} -O {outline.dedup} -M {outline.metrics}

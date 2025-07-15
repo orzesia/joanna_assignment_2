@@ -85,4 +85,14 @@ rule validate_bam:
     shell: 
         "gatk ValidateSamFile -I {input.bam} -MODE SUMMARY > {output}"
 
+rule duplicates:
+    input: bam = f"{ALIGNED_DIR}/aligned.sorted.bam"
+    output:
+        metrics = f"{ALIGNED_DIR}/dup_metrics.txt",
+        dedup = f"{ALIGNED_DIR}/dedup.bam"
+    shell: 
+        "gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics}"
+
+
+
 
