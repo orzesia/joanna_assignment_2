@@ -71,3 +71,10 @@ rule alignment:
         sam = f"{ALIGNED_DIR}/aligned.sam"
     shell: 
         "bwa mem -R '@RG\\tID:1\\tLB:lib1\\tPL:illumina\\tPU:unit1\\tSM:sample1' {input.fasta} {input.fastq} > {output.sam}"
+
+rule sam2bam:
+    input: sam = f"{ALIGNED_DIR}/aligned.sam"
+    output: 
+        bam = f"{ALIGNED_DIR}/aligned.sorted.bam"
+    shell: 
+        "samtools view -b {input.sam} | samtools sort -o {output.bam}"
