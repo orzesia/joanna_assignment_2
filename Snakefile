@@ -42,3 +42,9 @@ rule fastqc:
         fastqc -o {QC_DIR} {input.fastq}
         """
 
+rule samtools:
+    input: fasta = f"{RAW_DIR}/reference.fasta"
+    output: f"{RAW_DIR}/reference.fasta.fai"
+    shell: "samtools faidx {input.fasta}"
+
+
