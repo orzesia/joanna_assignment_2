@@ -33,10 +33,10 @@ rule data:
         """
 
 rule fastqc:
-    input: fastq=f"{RAW_DIR}/{SRA}.fastq"
+    input: fastq = f"{RAW_DIR}/{SRA}.fastq"
     output:
-        html=f"{QC_DIR}/{SRA}_fastqc.html",
-        zip=f"{QC_DIR}/{SRA}_fastqc.zip"
+        html = f"{QC_DIR}/{SRA}_fastqc.html",
+        zip = f"{QC_DIR}/{SRA}_fastqc.zip"
     shell:
         """
         fastqc -o {QC_DIR} {input.fastq}
@@ -63,4 +63,11 @@ rule dictionary:
         dict = f"{RAW_DIR}/reference.dict",
     shell: "gatk CreateSequenceDictionary -R {input.fasta} -O {output.dict}"
 
-
+rule alignment:
+    input: 
+        fasta = f"{RAW_DIR}/reference.fasta",
+        fastq = f"{RAW_DIR}/{SRA}.fastq"
+    output: 
+        sam = f"{ALIGNED_DIR}/aligned.sam"
+    shell: 
+        "bwa mem -R '@RG\\tID:1\\tLB:lib1\\tPL:illumina\\tPU:unit1\\tSM:sample1' {input.fasta} {input.fastq} > {output.sam}"
