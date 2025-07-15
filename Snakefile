@@ -78,3 +78,11 @@ rule sam2bam:
         bam = f"{ALIGNED_DIR}/aligned.sorted.bam"
     shell: 
         "samtools view -b {input.sam} | samtools sort -o {output.bam}"
+
+rule validate_bam:
+    input: bam = f"{ALIGNED_DIR}/aligned.sorted.bam"
+    output: f"{ALIGNED_DIR}/aligned.sorted.bam.validation.txt"
+    shell: 
+        "gatk ValidateSamFile -I {input.bam} -MODE SUMMARY > {output}"
+
+

@@ -1,0 +1,27 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job             count
+------------  -------
+validate_bam        1
+total               1
+
+Select jobs to execute...
+
+[Tue Jul 15 16:16:53 2025]
+rule validate_bam:
+    input: results/aligned/aligned.sorted.bam
+    output: results/aligned/aligned.sorted.bam.validation.txt
+    jobid: 0
+    reason: Missing output files: results/aligned/aligned.sorted.bam.validation.txt
+    resources: tmpdir=/tmp
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule validate_bam in file /home/ubuntu/binf5506/Snakefile, line 82:
+Job 0 completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+results/aligned/aligned.sorted.bam.validation.txt
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-15T161652.639877.snakemake.log
