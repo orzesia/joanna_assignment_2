@@ -15,12 +15,11 @@ rule all:
         f"{ANNOTATED_DIR}/annotated_variants.vcf",
         f"{SNPEFF_DIR}/snpEff.html"
 
-
 rule fasta:
     output: f"{RAW_DIR}/reference.fasta"
     shell: 
         """
-        mkdir -p {RAW_DIR} {ALIGNED_DIR} {VARIANT_DIR} {ANNOTATED_DIR} {QC_DIR} {SNPEFF_DATA_DIR}
+        mkdir -p {RAW_DIR} {ALIGNED_DIR} {VARIANT_DIR} {ANNOTATED_DIR} {QC_DIR} {SNPEFF_DATA_DIR} {SNPEFF_DIR}
         efetch -db nucleotide -id {REF_ID} -format fasta > {output}
         """
 
@@ -118,9 +117,23 @@ rule filtering:
     shell: 
         """gatk VariantFiltration -R {input.fasta} -V {input.vcf} -O {output.vcf} --filter-expression "QD < 2.0 || FS > 60.0" --filter-name FILTER"""
 
-rule ganbank:
+rule genbank:
     output:
         gbk = f"{SNPEFF_DATA_DIR}/genes.gbk"
     shell: 
         "efetch -db nucleotide -id {REF_ID} -format genbank > {output.gbk}"
 
+rule custom_snpEff:
+    input:
+        fasta = f"{RAW_DIR}/reference.fasta",
+        gbk = f"{SNPEFF_DATA_DIR}/genes.gbk"
+    output:
+        config = f"{SNPEFF_DIR}/snpEff.config"
+    shell:
+        """
+        cat <<EOF > {output.config}
+        reference_db.genome : reference_db
+        reference_db.fa : $(readlink -f {input.fasta})
+        reference_db.genbank : $(readlink -f {input.gbk})
+        EOF
+        """

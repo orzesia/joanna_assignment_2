@@ -1,0 +1,2 @@
+SyntaxError in file /home/ubuntu/binf5506/Snakefile, line 132:
+Command must be given as string after the shell keyword. (Snakefile, line 132)
