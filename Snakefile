@@ -57,5 +57,10 @@ rule bwa:
         f"{RAW_DIR}/reference.fasta.sa"
     shell: "bwa index {input.fasta}"
 
+rule dictionary:
+    input: fasta = f"{RAW_DIR}/reference.fasta"
+    output: 
+        dict = f"{RAW_DIR}/reference.dict",
+    shell: "gatk CreateSequenceDictionary -R {input.fasta} -O {output.dict}"
 
 
