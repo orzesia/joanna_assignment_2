@@ -93,7 +93,6 @@ rule duplicates:
     shell: 
         "gatk MarkDuplicates -I {input.bam} -O {output.dedup} -M {output.metrics}"
 
-
 rule indexing:
     input: bam = f"{ALIGNED_DIR}/dedup.bam"
     output:
@@ -101,5 +100,12 @@ rule indexing:
     shell: 
         "samtools index {input.bam}"
 
-
+rule variant_calling:
+    input: 
+        bam = f"{ALIGNED_DIR}/dedup.bam",
+        fasta = f"{RAW_DIR}/reference.fasta"
+    output:
+        vcf = f"{VARIANT_DIR}/raw_variants.vcf"
+    shell: 
+        "gatk HaplotypeCaller -R {input.fasta} -I {input.bam} -O {output.vcf}"
 
