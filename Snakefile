@@ -109,3 +109,14 @@ rule variant_calling:
     shell: 
         "gatk HaplotypeCaller -R {input.fasta} -I {input.bam} -O {output.vcf}"
 
+rule filtering:
+    input: 
+        fasta = f"{RAW_DIR}/reference.fasta",
+        vcf = f"{VARIANT_DIR}/raw_variants.vcf"
+    output:
+        vcf = f"{VARIANT_DIR}/filtered_variants.vcf"
+    shell: 
+        """gatk VariantFiltration -R {input.fasta} -V {input.vcf} -O {output.vcf} --filter-expression "QD < 2.0 || FS > 60.0" --filter-name FILTER"""
+
+
+

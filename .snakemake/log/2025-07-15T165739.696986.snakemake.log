@@ -1,0 +1,3 @@
+NameError in file /home/ubuntu/binf5506/Snakefile, line 117:
+name 'ARIANT_DIR' is not defined
+  File "/home/ubuntu/binf5506/Snakefile", line 117, in <module>
