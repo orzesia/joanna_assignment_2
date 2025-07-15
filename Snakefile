@@ -23,3 +23,13 @@ rule fasta:
         mkdir -p {RAW_DIR} {ALIGNED_DIR} {VARIANT_DIR} {ANNOTATED_DIR} {QC_DIR} {SNPEFF_DATA_DIR}
         efetch -db nucleotide -id {REF_ID} -format fasta > {output}
         """
+
+rule data:
+    output: f"{RAW_DIR}/{SRA}.fastq"
+    shell:
+        """
+        prefetch {SRA} -O {RAW_DIR}
+        fastq-dump -X 10000 {RAW_DIR}/{SRA}/{SRA}.sra -O {RAW_DIR}
+        """
+
+
